@@ -44,7 +44,7 @@
     $parking_filter = $_GET['parking-filter'];
     
     foreach($hotels as $hotel){
-        if($hotel['parking'] == $parking_filter){
+        if($parking_filter != null){
             $hotels_filtred[] = $hotel;
         }
     }

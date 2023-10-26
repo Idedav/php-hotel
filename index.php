@@ -40,6 +40,16 @@
 
     ];
 
+    $hotels_filtred = [];
+    $parking_filter = $_GET['parking-filter'];
+    
+    foreach($hotels as $hotel){
+        if($hotel['parking'] == $parking_filter){
+            $hotels_filtred[] = $hotel;
+        }
+    }
+    $hotels = $hotels_filtred;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,22 +65,44 @@
 </head>
 <body>
     <div class="container my-5">
+        <h1>Ricerca Hotel</h1>
         <div class="row">
-            <?php foreach($hotels as $hotel): 
-               $icon_parking_color = ($hotel['parking'] === true) ? 'text-success' : 'text-danger'; 
-               $hotel['parking'] = ($hotel['parking'] === true) ? 'fa-check' : 'fa-xmark'; ?>
-            <div class="col my-4">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $hotel['name'] ?></h5>
-                        <p class="card-text"><?php echo $hotel['description'] ?></p>
-                        <p>Parcheggio <i class="fa-solid <?php echo $hotel['parking'] . ' ' .  $icon_parking_color ?>"></i> </p>
-                        <p>Voto: <?php echo $hotel['vote'] ?></p>
-                        <p>Distanza dal centro: <?php echo $hotel['distance_to_center'] ?> Km</p>
+            <div class="col-3 my-3">
+                <form action="index.php" method="GET">
+                    <div class="form-check my-3">
+                        <input class="form-check-input" type="checkbox" value="true" id="parking-filter" name="parking-filter">
+                        <label class="form-check-label" for="parking-filter">Parcheggio Dispobibile</label>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Cerca</button>
+                </form>
             </div>
-            <?php endforeach; ?>
+            <h2>Hotel disponibili:</h2>
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome Hotel</th>
+                            <th scope="col">Descrizione</th>
+                            <th scope="col">Parcheggio</th>
+                            <th scope="col">Voto</th>
+                            <th scope="col">Distanza dal centro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach($hotels as $hotel): 
+                    $icon_parking_color = ($hotel['parking'] === true) ? 'text-success' : 'text-danger'; 
+                    $hotel['parking'] = ($hotel['parking'] === true) ? 'fa-check' : 'fa-xmark'; ?>
+                        <tr>
+                            <td><?php echo $hotel['name'] ?></td>
+                            <td><?php echo $hotel['description'] ?></td>
+                            <td><i class="fa-solid <?php echo $hotel['parking'] . ' ' . $icon_parking_color ?>"></i></td>
+                            <td><?php echo $hotel['vote'] ?></td>
+                            <td><?php echo $hotel['distance_to_center'] ?> Km</td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

@@ -41,14 +41,15 @@
     ];
 
     $hotels_filtred = [];
-    $parking_filter = $_GET['parking-filter'];
-    
-    foreach($hotels as $hotel){
-        if($parking_filter != null){
-            $hotels_filtred[] = $hotel;
+    $parking_filter = isset($_GET['parking-filter']) ? $_GET['parking-filter'] : null;
+    if($parking_filter != null){
+        foreach($hotels as $hotel){
+            if($hotel['parking'] == $parking_filter){
+                $hotels_filtred[] = $hotel;
+            }
         }
+        $hotels = $hotels_filtred;
     }
-    $hotels = $hotels_filtred;
 
 ?>
 <!DOCTYPE html>

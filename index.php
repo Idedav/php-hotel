@@ -57,13 +57,14 @@
     <div class="container my-5">
         <div class="row">
             <?php foreach($hotels as $hotel): 
-               $hotel['parking'] = ($hotel['parking'] === true) ? 'fa-check' : 'fa-xmark';?>
+               $icon_parking_color = ($hotel['parking'] === true) ? 'text-success' : 'text-danger'; 
+               $hotel['parking'] = ($hotel['parking'] === true) ? 'fa-check' : 'fa-xmark'; ?>
             <div class="col my-4">
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $hotel['name'] ?></h5>
                         <p class="card-text"><?php echo $hotel['description'] ?></p>
-                        <p>Parcheggio <i class="fa-solid <?php echo $hotel['parking'] ?>"></i> </p>
+                        <p>Parcheggio <i class="fa-solid <?php echo $hotel['parking'] . ' ' .  $icon_parking_color ?>"></i> </p>
                         <p>Voto: <?php echo $hotel['vote'] ?></p>
                         <p>Distanza dal centro: <?php echo $hotel['distance_to_center'] ?> Km</p>
                     </div>
